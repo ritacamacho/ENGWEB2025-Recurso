@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title Edições da Eurovisão
+    link(rel="icon", href="favicon.png")
+    link(rel="stylesheet", href="/w3.css")
+  body
+    .w3-card-4
+      header.w3-container.w3-crimson
+        h1 Cocktails
+        p Rita Camacho (A104439) - Recurso de Engenharia Web 2025
+
+      main.w3-container
+        table.w3-table-all.w3-hoverable
+          thead
+            tr
+              th ID do cocktail
+              th Nome do cocktail
+              th Categoria
+              th Criador
+          tbody
+            each cocktail in cocktails
+              tr
+                td
+                  a(href=`/${cocktail._id}`) #{cocktail._id}
+                td #{cocktail.nome}
+                td #{cocktail.categoria}
+                td
+                  if cocktail.criador
+                    a(href=`/criadores/${cocktail.criador.id}`) #{cocktail.criador.nome}
+                  else
+                    | (sem criador)

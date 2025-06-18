@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title Cocktail #{cocktail.nome}
+    link(rel="icon", href="favicon.png")
+    link(rel="stylesheet", href="/w3.css")
+  body
+    header.w3-container.w3-crimson
+      h1 Cocktail #{cocktail.nome}
+      p Rita Camacho (A104439) - Recurso de Engenharia Web 2025
+
+    main.w3-container
+      p
+        a(href="/") ← Voltar à página principal
+
+      p 
+        strong ID:
+        |  #{cocktail._id}
+      p
+        strong Nome:
+        |  #{cocktail.nome}
+      p
+        strong Fotografia:
+        |  #{cocktail.foto ? cocktail.foto : '(sem fotografia)'}
+      p
+        strong Categoria:
+        |  #{cocktail.categoria ? cocktail.categoria : '(sem categoria)'}
+      p
+        strong Servido em:
+        |  #{cocktail.servidoEm ? cocktail.servidoEm : '(sem informação)'}
+      p
+        strong Preparação:
+        |  #{cocktail.preparacao}
+      p
+        strong Ingredientes:
+        ul
+          each ingrediente in cocktail.ingredientes
+            li #{ingrediente}
+      p 
+        strong Criador:
+        if cocktail.criador
+          a(href=`/criadores/${cocktail.criador.id}`) #{cocktail.criador.nome}
+        else
+          | (sem criador)

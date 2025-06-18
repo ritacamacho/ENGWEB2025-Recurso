@@ -5,10 +5,9 @@ module.exports.list = () => {
     return Cocktail.find().select('_id nome categoria criador').exec();
 };
 
-//resolver
-module.exports.listByIng = (ing) => {
+module.exports.listByIng = (ingrediente) => {
   return Cocktail.find({
-    ingredientes: ing
+    ingredientes: ingrediente
   })
   .select('_id nome ingredientes')
   .exec();
@@ -77,6 +76,32 @@ module.exports.categorias = () => {
     },
     { $sort: { categoria: 1 } }
   ]).exec();
+};
+
+module.exports.criadorById = (id) => {
+  return Cocktail.aggregate([
+    { $match: { "criador.id": id } },
+    {
+      $group: {
+        _id: "$criador.id",
+        criador: { $first: "$criador" },
+        cocktails: { $push: "$nome" }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        criador: 1,
+        cocktails: 1
+      }
+    }
+  ]).exec();
+};
+
+module.exports.cocktailsByCriador = (criador) => {
+  return Cocktail.find({ "criador.id": criador })
+    .select("_id nome categoria ingredientes")
+    .exec();
 };
 
 module.exports.insert = async (cocktail) => {

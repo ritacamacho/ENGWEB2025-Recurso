@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    title Cocktails
+    link(rel="icon", href="favicon.png")
+    link(rel="stylesheet", href="/w3.css")
+  body
+    .w3-card-4
+      header.w3-container.w3-crimson
+        h1 Criador #{criador.name}
+        p Rita Camacho (A104439) - Recurso de Engenharia Web 2025
+
+      .w3-container
+        h2 Cocktails Criados
+        table.w3-table-all.w3-hoverable
+          thead
+            tr
+              th ID do Cocktail
+              th Nome do Cocktail
+              th Categoria
+              th Ingredientes
+          tbody
+            each c in criador.cocktails
+              tr
+                td 
+                  a(href=`/cocktails/${c.id}`) #{c.id}
+                td #{c.nome}
+                td #{c.categoria || '(sem categoria)'}
+                td 
+                  ul
+                    each i in c.ingredientes
+                      li #{i}
+
+        br
+        a.w3-button.w3-black(href="/") ← Voltar à página principal

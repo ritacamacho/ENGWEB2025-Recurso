@@ -8,8 +8,7 @@ db.cocktails.countDocuments({ categoria: "ordinarydrink" })
 db.cocktails.aggregate([
   { $unwind: "$ingredientes" },
   { $group: { _id: "$ingredientes" } },
-  { $sort: { _id: 1 } },
-  { $project: { _id: 0, ingrediente: "$_id" } }
+  { $sort: { _id: 1 } }
 ])
 
 4. Qual a distribuição de cocktails por ingrediente (em quantos cocktails entra cada ingrediente)?

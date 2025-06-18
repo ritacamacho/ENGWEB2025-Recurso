@@ -6,8 +6,8 @@ const Cocktail = require('../controllers/cocktail');
 /* GET cocktails */
 router.get('/cocktails', function(req, res, next) {
     /* Filter by ingredient */
-    if (req.query.ing) {
-        Cocktail.listByIng(req.query.ing)
+    if (req.query.ingrediente) {
+        Cocktail.listByIng(req.query.ingrediente)
         .then(dados => {res.jsonp(dados)})
         .catch(erro => res.status(500).jsonp(erro));
         
@@ -49,6 +49,13 @@ router.get('/categorias', function(req, res, next) {
         .catch(erro => res.status(500).jsonp(erro))
 });
 
+/* GET criador by id */
+router.get('/criadores/:id', function(req, res, next) {
+    Cocktail.criadorById(req.params.id)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).jsonp(erro))
+});
+
 /* POST cocktails */
 router.post('/cocktails', function(req, res, next) {
 Cocktail.insert(req.body)
@@ -76,5 +83,13 @@ router.put('/cocktails/:id', function(req, res, next) {
         .catch(erro => res.status(500).jsonp(erro))
     }
 );
+
+router.get('/criacoes/:id', function(req, res, next) {
+    const criador = req.params.id
+
+    Cocktail.cocktailsByCriador(criador)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => res.status(500).jsonp(erro));
+});
 
 module.exports = router;
